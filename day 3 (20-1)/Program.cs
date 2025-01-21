@@ -25,6 +25,36 @@ namespace day_3__20_1_
 
         }
 
+        static void Prims(int n1, int n2)
+        {
+
+            for (int i = n1; i <= n2; i++)
+            {
+                if (i == 2)
+                {
+                    Console.WriteLine(i);
+                }
+                if ( (i % 2 == 0) ||(i % 5 == 0)||(i % 3 == 0))
+                {
+                    continue;
+                }
+
+                int counter = 0;
+                for (int j = 2; j <= i; j++)
+                {
+                    if ((j % i) == 0)
+                    {
+                        counter++;
+                    }
+                }
+                if (counter == 1)
+                {
+                    Console.WriteLine(i);
+
+                }
+
+            }
+        }
         static int MaxValue(int[] numbers)
         {
             int max = numbers[0];
@@ -123,7 +153,7 @@ namespace day_3__20_1_
 
 
 
-
+            Prims( 10, 30);
 
 
 
