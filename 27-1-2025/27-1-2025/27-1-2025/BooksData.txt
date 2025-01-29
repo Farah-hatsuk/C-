@@ -1,5 +1,5 @@
 1 hhhht maths 10
-2 MAth Math 3
+2 MAth maths 3
 3 MAth Math 4
 4 MAth Math 5
 5 MAth Math 6

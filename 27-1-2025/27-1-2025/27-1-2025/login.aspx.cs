@@ -10,10 +10,7 @@ namespace _27_1_2025
 {
     public partial class login : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
 
-        }
 
         protected void login_Click(object sender, EventArgs e)
         {
@@ -34,24 +31,25 @@ namespace _27_1_2025
             string file = Server.MapPath("UserData.txt");
 
             string[] users = File.ReadAllLines(file);
-            foreach (string line in users) {
+            foreach (string line in users)
+            {
 
                 string[] UserData = line.Split(' ');
-                if (UserData[1] == useremail && UserData[2]==userpassword) {
+                if (UserData[1] == useremail && UserData[2] == userpassword)
+                {
                     Response.Redirect("UserDashboard.aspx");
                     return;
                 }
-                if (useremail == "Admin@gmail.com" && userpassword == "000") {
+                if (useremail == "Admin@gmail.com" && userpassword == "000")
+                {
                     Response.Redirect("AdminDashboard.aspx");
-                        }
+                }
 
-            
+
             }
 
             lblmsg.Text = "Invalid Email or Password";
             lblmsg.Visible = true;
-
-
         }
-    }
+        }
 }
