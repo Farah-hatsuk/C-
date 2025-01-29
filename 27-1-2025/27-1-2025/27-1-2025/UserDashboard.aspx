@@ -35,7 +35,7 @@
     </div>
 
 </div>
-
+             <asp:Button CssClass="btn btn-primary" ID="profile" runat="server" Text="profile" OnClick="profile_Click" />
 
         </div>
     </form>

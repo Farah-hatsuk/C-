@@ -10,72 +10,76 @@ namespace _27_1_2025
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            // Initialization logic (if needed)
+        }
+
+        protected void searchBtn_Click(object sender, EventArgs e)
+        {
+            string email = searchTxt.Text.Trim(); // Get the email to search for
+            string filePath = Server.MapPath("UserData.txt");
+
+            if (File.Exists(filePath))
             {
-                LoadUserProfile();
+                string[] data = File.ReadAllLines(filePath);
+                foreach (string line in data)
+                {
+                    string[] parts = line.Split(' ');
+                    if (parts.Length >= 6 && parts[1].Trim() == email) // Check if email matches
+                    {
+                        // Populate the fields with user data
+                        name.Text = parts[0].Trim(); // Name
+                        Email.Text = parts[1].Trim(); // Email
+                        Password.Text = parts[2].Trim(); // Password
+                        confirmPassword.Text = parts[3].Trim(); // Confirm Password
+                        phoneNumber.Text = parts[4].Trim(); // Phone Number
+                        gender.SelectedValue = parts[5].Trim(); // Gender
+
+                        break; // Exit the loop once the user is found
+                    }
+                }
+            }
+            else
+            {
+                Response.Write("<script>alert('User data file not found!');</script>");
             }
         }
 
-        private void LoadUserProfile()
+        protected void editBtn_Click(object sender, EventArgs e)
         {
-            string filePath = Server.MapPath("~/UserData.txt");
-            string userEmail = Session["UserEmail"] as string;
+            string filePath = Server.MapPath("UserData.txt");
+            string email = searchTxt.Text.Trim();
 
-            if (string.IsNullOrEmpty(userEmail))
+            if (File.Exists(filePath))
             {
-                Response.Write("<script>alert('No user is logged in.');</script>");
-                return;
-            }
+                string[] data = File.ReadAllLines(filePath);
+                bool userFound = false;
 
-            if (!File.Exists(filePath))
-            {
-                Response.Write("<script>alert('User data file not found.');</script>");
-                return;
-            }
-
-            string[] lines = File.ReadAllLines(filePath);
-            bool userFound = false;
-
-            foreach (var line in lines)
-            {
-                if (string.IsNullOrWhiteSpace(line)) continue;
-
-                string[] userData = line.Split(' ');
-
-                if (userData.Length >= 4)
+                for (int i = 0; i < data.Length; i++)
                 {
-                    string storedName = userData[0];
-                    string storedEmail = userData[1];
-                    string storedPassword = userData[2];
-
-                    if (storedEmail.Equals(userEmail, StringComparison.OrdinalIgnoreCase))
+                    string[] parts = data[i].Split(' ');
+                    if (parts.Length >= 6 && parts[1].Trim() == email) // Check if email matches
                     {
-                        lblName.Text = storedName;
-                        lblEmail.Text = storedEmail;
-                        lblProfileEmail.Text = storedEmail;
-                        lblFullName.Text = storedName;
-                        lblPassword.Text = storedPassword;
-
-                        string membershipID = "123456"; // قيمة افتراضية
-                        lblProfileMembershipID.Text = membershipID;
-                        lblMembershipID.Text = membershipID;
-                        lblStatus.Text = "Active"; // تعيين الحالة كمفعّلة
-
+                        // Update the user data
+                        data[i] = $"{name.Text.Trim()} {Email.Text.Trim()} {Password.Text.Trim()} {confirmPassword.Text.Trim()} {phoneNumber.Text.Trim()} {gender.SelectedValue}";
                         userFound = true;
                         break;
                     }
                 }
-            }
 
-            if (!userFound)
+                if (userFound)
+                {
+                    File.WriteAllLines(filePath, data); // Save the updated data
+                    Response.Write("<script>alert('User data updated successfully!');</script>");
+                }
+                else
+                {
+                    Response.Write("<script>alert('User not found!');</script>");
+                }
+            }
+            else
             {
-                Response.Write("<script>alert('User not found in the file.');</script>");
+                Response.Write("<script>alert('User data file not found!');</script>");
             }
-        }
-
-        protected void btnEditProfile_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("edit_profile.aspx");
         }
     }
 }

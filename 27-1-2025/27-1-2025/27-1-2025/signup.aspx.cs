@@ -23,8 +23,10 @@ namespace _27_1_2025
             string useremail = email.Text;
             string userpassword = password.Text;
             string confirmpass = ConfirmPassword.Text;
+            string userphone = phone.Text;
+            string usergender = gender.Text;
 
-            string userdata = $"{username} {useremail} {userpassword} {confirmpass}";
+            string userdata = $"{username} {useremail} {userpassword} {confirmpass} {userphone} {usergender}";
 
             string file = Server.MapPath("UserData.txt");
 
