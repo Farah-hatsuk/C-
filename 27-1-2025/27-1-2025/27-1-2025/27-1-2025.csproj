@@ -72,6 +72,7 @@
     <Content Include="AdminDashboard.aspx" />
     <Content Include="AllBooks.aspx" />
     <Content Include="AllRooms.aspx" />
+    <Content Include="edit book.aspx" />
     <Content Include="HomePage.aspx" />
     <Content Include="login.aspx" />
     <Content Include="signup.aspx" />
@@ -113,6 +114,13 @@
     </Compile>
     <Compile Include="AllRooms.aspx.designer.cs">
       <DependentUpon>AllRooms.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="edit book.aspx.cs">
+      <DependentUpon>edit book.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="edit book.aspx.designer.cs">
+      <DependentUpon>edit book.aspx</DependentUpon>
     </Compile>
     <Compile Include="HomePage.aspx.cs">
       <DependentUpon>HomePage.aspx</DependentUpon>
